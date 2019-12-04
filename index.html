@@ -46,9 +46,11 @@
 				for (let row = 0; row < teamSize; row++) {
 					let temp = [];
 					for (let col = 0; col < noOfTeams; col++) {
-						temp.push(initialNumber++ % namesListLength);
+						temp.push((initialNumber + row + col + teamSize) % namesListLength);
+						// temp.push(initialNumber++ % namesListLength);
 					}
 					tempTeams.push(temp);
+					initialNumber = (initialNumber + teamSize) % namesListLength;
 				}
 
 				for (let row = 0; row < noOfTeams; row++, counter++) {
