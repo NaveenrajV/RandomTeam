@@ -1,0 +1,47 @@
+body {
+  background-color: #f4f4f4;
+}
+
+.form {
+  width: 500px;
+  border: 1px solid black;
+  padding: 30px;
+  border-radius: 20px;
+}
+
+.title {
+  font-weight: bold;
+  margin: 1rem 0;
+  border-bottom: 1px solid black;
+  padding: 5px 10px;
+}
+
+button {
+  background-color: #ff7315;
+  color: white;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+
+}
+
+input[type='text'] {
+  height: 1.5rem;
+}
+
+#list {
+  display: flex;
+  ;
+}
+
+li {
+  margin: .2rem 0;
+}
+
+#Team {
+  margin-right: 5rem;
+}

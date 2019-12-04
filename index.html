@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<link rel="stylesheet" href="./index.css" />
+	</head>
+	<body>
+		<form class="form" onsubmit="event.preventDefault();generateRandomTeams()">
+			<table>
+				<tr>
+					<td>Names (separate by comma) :</td>
+					<td><input type="text" id="names" required /></td>
+				</tr>
+				<tr>
+					<td>Split up:</td>
+					<td><input type="number" id="noOfTeams" min="2" required /></td>
+				</tr>
+			</table>
+
+			<center><button type="submit">Generate</button></center>
+		</form>
+		<div id="list"></div>
+	</body>
+	<script>
+		function generateRandomTeams() {
+			deletePreviousGeneratedTeams();
+			let names = document.getElementById('names').value.split(',');
+			let noOfTeams = document.getElementById('noOfTeams').value;
+			let tempTeams = [],
+				finalTeams = [],
+				counter = 0;
+			names = names.filter(name => name);
+			const namesListLength = names.length;
+
+			if (namesListLength % 2 !== 0) {
+				alert('Please specify even number of team !');
+			} else if (namesListLength % noOfTeams !== 0) {
+				alert('Split not Possible !');
+			} else {
+				const teamSize = namesListLength / noOfTeams;
+				let initialNumber = Math.floor(Math.random() * namesListLength + 1);
+
+				for (let row = 0; row < teamSize; row++) {
+					let temp = [];
+					for (let col = 0; col < noOfTeams; col++) {
+						// console.log((initialNumber + row + col + teamSize) % namesListLength);
+						temp.push((initialNumber + row + col + teamSize) % namesListLength);
+					}
+					tempTeams.push(temp);
+					initialNumber = (initialNumber + teamSize) % namesListLength;
+				}
+
+				console.log(tempTeams);
+				for (let row = 0; row < noOfTeams; row++, counter++) {
+					let temp = [];
+					for (let col = 0; col < teamSize; col++) {
+						temp.push(tempTeams[col][counter]);
+					}
+					finalTeams.push(temp);
+				}
+
+				for (let row = 0; row < noOfTeams; row++) {
+					let html = `<div id='Team'>
+					<div class="title">Team${row + 1}</div><ol>`;
+					for (let col = 0; col < finalTeams[row].length; col++) {
+						html += `<li>${names[finalTeams[row][col]]}</li>`;
+					}
+					html += `</ol></div> `;
+					document.getElementById('list').innerHTML += html;
+				}
+			}
+		}
+
+		function deletePreviousGeneratedTeams() {
+			document.querySelector('#list').innerHTML = '';
+		}
+	</script>
+</html>
